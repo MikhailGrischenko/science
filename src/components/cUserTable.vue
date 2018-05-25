@@ -35,29 +35,18 @@ export default {
   },
   methods: {
     convertUsersData: function (userData) {
-      let user = {}
-      let {id, avatar, firstName, lastName, birthday, position, remoteWork, homeAddressCity, homeAddressAvenu, homeAddressBuild, homeAddressApartment} = userData
-      user.id = id
-      user.avatar = avatar
-      user.firstName = firstName
-      user.lastName = lastName
-      user.remoteWork = remoteWork
-      user.birthday = birthday
-      user.homeAddress = this.getHomeAddress(homeAddressCity, homeAddressAvenu, homeAddressBuild, homeAddressApartment)
-      user.age = this.getCurrentAge(birthday)
-      user.position = this.getUserPosition(position)
+      let user = Object.assign({}, userData)
+      user.homeAddress = this.getHomeAddress(userData.homeAddressCity, userData.homeAddressAvenu, userData.homeAddressBuild, userData.homeAddressApartment)
+      user.age = this.getCurrentAge(userData.birthday)
+      user.position = this.getUserPosition(userData.position)
       return user
     },
     getHomeAddress: function (city, avenu, build, apartment) {
-      if ((city === '') && (avenu === '') && (build === '') && (apartment === '')) {
-        return ''
-      } else {
-        return city + ' ' + avenu + ' ' + build + ' ' + apartment
-      }
+      let address = [...arguments]
+      return address.filter(chunk => chunk).join(' ')
     },
     getCurrentAge: function (date) {
-      let CurrentAge = Math.floor((new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000))
-      return CurrentAge
+      return Math.floor((new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000))
     },
     getUserPosition: function (positionId) {
       let position = null

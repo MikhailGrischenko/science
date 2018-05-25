@@ -8,9 +8,9 @@ export default {
         title: 'Сохранить',
         icon: 'save'
       },
-      cansel: {
+      cancel: {
         type: 'button',
-        value: 'cansel',
+        value: 'cancel',
         title: 'Отменить',
         icon: 'chevron-circle-left'
       }

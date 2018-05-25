@@ -81,13 +81,8 @@ export default {
     },
     tableReverse: function () {
       let data = this.tableData
-      if (this.sortReverse) {
-        this.sortIndication(this.columnSort, 1)
-        return data.reverse()
-      } else {
-        this.sortIndication(this.columnSort, -1)
-        return data.reverse()
-      }
+      this.sortIndication(this.columnSort, this.sortReverse ? 1 : -1)
+      return data.reverse()
     }
   },
   methods: {

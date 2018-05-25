@@ -3,7 +3,7 @@
     <div class="cuser__form-header">
       <h1 class="cuser__form-title">{{ formData.title }}</h1>
       <cButton
-        :cButton="formData.buttons.cansel"
+        :cButton="formData.buttons.cancel"
       ></cButton>
       <cButton
         :cButton="formData.buttons.save"
@@ -133,16 +133,12 @@ export default {
   },
   methods: {
     saveUser: function () {
-      let userId = this.getUserData.id
-      if (userId === '') {
-        this.getUserData.id = this.getNewId
-        this.addNewUser(this.getUserData)
-        this.$store.commit('nullState')
-        this.$router.push('/')
+      let user = this.getUserData
+      if (!user.id) {
+        user.id = this.getNewId
+        this.addNewUser(user)
       } else {
-        this.refreshUser(this.getUserData)
-        this.$store.commit('nullState')
-        this.$router.push('/')
+        this.refreshUser(user)
       }
     },
     goBack: function () {
@@ -154,9 +150,8 @@ export default {
     clickButton: function () {
       if (this.clickButton === 'save') {
         this.saveUser()
-      } else if (this.clickButton === 'cansel') {
-        this.goBack()
       }
+      this.goBack()
     }
   }
 }
